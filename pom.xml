@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.globalbank</groupId>
+  <artifactId>GlobalBankAutomation</artifactId>
+  <version>1.0.0</version>
+  <name>GlobalBankAutomation</name>
+
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- Library versions -->
+    <selenium.version>4.26.0</selenium.version>
+    <wdm.version>5.9.2</wdm.version>
+    <cucumber.version>7.14.0</cucumber.version>
+    <testng.version>7.11.0</testng.version>
+
+    <!-- Extent -->
+    <extent.version>5.1.2</extent.version>
+    <extent.adapter.version>1.14.0</extent.adapter.version>
+
+    <!-- Logging & build -->
+    <log4j.version>2.23.1</log4j.version>
+    <surefire.version>3.2.5</surefire.version>
+  </properties>
+
+  <dependencies>
+    <!-- Selenium + WebDriverManager -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>${wdm.version}</version>
+    </dependency>
+
+    <!-- Cucumber + TestNG -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-testng</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-picocontainer</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Extent core (needed if you keep any Extent* classes or use adapter API) -->
+    <dependency>
+      <groupId>com.aventstack</groupId>
+      <artifactId>extentreports</artifactId>
+      <version>${extent.version}</version>
+    </dependency>
+
+
+    <!-- Extent adapter for Cucumber 7 -->
+    <dependency>
+      <groupId>tech.grasshopper</groupId>
+      <artifactId>extentreports-cucumber7-adapter</artifactId>
+      <version>${extent.adapter.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Logging: ONE SLF4J binding via Log4j2 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
+      <version>${log4j.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Run TestNG/Cucumber -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <configuration>
+          <includes>
+            <include>**/*Runner.java</include>
+            <include>**/*Test.java</include>
+            <include>**/*Tests.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+
+      <!-- Java compiler -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <release>${maven.compiler.release}</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
